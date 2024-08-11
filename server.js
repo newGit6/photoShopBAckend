@@ -9,29 +9,16 @@ const path = require("path");
 const Video = require("./modules/shortApplication");
 const Auth = require("./AUTH/Auth");
 
-dotenv.config(); // Ensure this is at the top
-
 const app = express();
 app.use(cors());
 app.use(express.json()); // Add this to parse JSON bodies
 const router = express.Router();
 
-// Connect to MongoDB
-mongoose
-  .connect(
-    process.env.MONGODB_URI || "mongodb://localhost:27017/ShortVideoDB",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
-  .then(() => {
-    console.log("MongoDB connected");
-  })
-  .catch((err) => {
-    console.error("MongoDB connection error:", err);
-    process.exit(1);
-  });
+const connectDB = require("./config/db");
+
+dotenv.config(); // Ensure this is at the top
+
+connectDB();
 
 // Ensure uploads directory exists
 const uploadsDir = path.join(__dirname, "uploads");
