@@ -10,7 +10,12 @@ const Video = require("./modules/shortApplication");
 const Auth = require("./AUTH/Auth");
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://famous-queijadas-fa2e56.netlify.app",
+    credentials: true,
+  })
+);
 app.use(express.json()); // Add this to parse JSON bodies
 const router = express.Router();
 
